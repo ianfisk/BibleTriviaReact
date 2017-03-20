@@ -34,11 +34,11 @@ class App extends Component {
 	}
 
   render() {
-		const { questions, showQuestion } = this.state;
+		const { questions, showQuestion, showAnswer } = this.state;
 
     return (
       <div className="App">
-        <BibleTrivia questions={questions} showQuestion={showQuestion} />
+        <BibleTrivia questions={questions} showQuestion={showQuestion} showAnswer={showAnswer} />
       </div>
     );
   }
