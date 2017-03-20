@@ -2,6 +2,19 @@ import React, { Component, PropTypes } from 'react';
 import { Motion, spring } from 'react-motion';
 import { styles } from './styles';
 
+const shrinkTextToFit = (parent, child) => {
+	if (!parent || !child)
+		return;
+
+	if (parent.offsetHeight < child.offsetHeight) {
+		let limit = 0;
+		while (parent.offsetHeight < child.offsetHeight && limit < 10) {
+			child.style.fontSize = `${parseInt(child.style.fontSize) - 1}pt`;
+			limit++;
+		}
+	}
+};
+
 export default class Question extends Component {
 	static propTypes = {
 		text: PropTypes.string.isRequired,
@@ -31,17 +44,34 @@ export default class Question extends Component {
 		};
 	};
 
+	setQuestionTextRef = (ref) => {
+		this.questionText = ref;
+		shrinkTextToFit(this.questionContainer, this.questionText);
+	};
+
 	render() {
 		const { fadeQuestionIn } = this.state;
 		const { text } = this.props;
 
 		return (
-			<div style={styles.container}>
+			<div style={styles.container} ref={x => this.questionContainer = x}>
 				{fadeQuestionIn ?
 					<Motion
 						defaultStyle={this.getDefaultStyle()}
 						style={this.getStyle()}>
-						{style => <span style={{...style, alignSelf: 'flex-start', position: 'relative'}}>{text}</span>}
+						{style => (
+							<div
+								ref={this.setQuestionTextRef.bind(this)}
+								style={{
+									...style,
+									alignSelf: 'flex-start',
+									position: 'relative',
+									fontSize: '48pt',
+									paddingRight: '5%',
+								}}>
+								{text}
+							</div>
+						)}
 					</Motion> :
 					null
 				}
