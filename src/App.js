@@ -1,18 +1,44 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import BibleTrivia from './bible-trivia';
 import './App.css';
 
 class App extends Component {
+	state = {
+		questions: [{
+			text: 'Where was Jesus born?',
+			choices: [
+				'Bellingham',
+				'Bethlehem',
+				'Tel Aviv',
+				'Paris'
+			],
+			questionId: 1234,
+		},
+		{
+			text: 'Where was Ian born?',
+			choices: [
+				'Ellensburg',
+				'Spokane',
+				'Seattle',
+				'Naches'
+			],
+			questionId: 12345,
+		}],
+		showQuestion: false,
+		showAnswer: false,
+		showLeaderboard: false,
+	}
+
+	componentDidMount() {
+		setTimeout(() => this.setState({ showQuestion: true }), 1000);
+	}
+
   render() {
+		const { questions, showQuestion } = this.state;
+
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <BibleTrivia questions={questions} showQuestion={showQuestion} />
       </div>
     );
   }
