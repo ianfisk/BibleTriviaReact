@@ -16,17 +16,37 @@ class App extends Component {
 			questionId: 1234,
 		},
 		{
-			text: 'Where was Ian born?',
+			text: 'How many books are in the New Testament?',
 			choices: [
-				'Ellensburg',
-				'Spokane',
-				'Seattle',
-				'Naches'
+				'26',
+				'64',
+				'27',
 			],
-			answer: 3,
+			answer: 2,
+			questionId: 12345,
+		},
+		{
+			text: 'What type of insect did John the Baptist eat in the desert?',
+			choices: [
+				"He didn't eat any insects.",
+				'Crickets',
+				'Locusts',
+			],
+			answer: 2,
+			questionId: 12345,
+		},
+		{
+			text: 'Matthew was a _________.',
+			choices: [
+				'Man',
+				'Tax collector',
+				'Baker',
+				'Nomad'
+			],
+			answer: 1,
 			questionId: 12345,
 		}],
-		questionAndAnswerDuration: 10000,
+		questionAndAnswerDuration: 8000,
 	};
 
 	render() {

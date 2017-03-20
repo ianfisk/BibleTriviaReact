@@ -20,6 +20,15 @@ export default class Choices extends Component {
 		})),
 	};
 
+	componentWillReceiveProps(newProps) {
+		this.setState({
+			choices: newProps.choices.map((choice, index) => ({
+				key: String.fromCharCode(characterCodeStart + index),
+				data: choice,
+			}))
+		});
+	}
+
 	componentDidMount() {
 		setTimeout(() => this.setState({fadeChoicesIn: true}), 1000);
 	}
