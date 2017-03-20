@@ -9,6 +9,7 @@ export default class Choices extends Component {
 	static propTypes = {
 		choices: PropTypes.arrayOf(PropTypes.string).isRequired,
 		showAnswer: PropTypes.bool.isRequired,
+		answer: PropTypes.number.isRequired,
 	};
 
 	state = {
@@ -46,6 +47,7 @@ export default class Choices extends Component {
 	};
 
   render() {
+		const { answer, showAnswer } = this.props;
 		const { fadeChoicesIn, choices } = this.state;
 
     return (
@@ -57,7 +59,16 @@ export default class Choices extends Component {
 						{interpolatedStyles =>
 							<div style={{dipslay: 'flex', flexDirection: 'column', width: '100%', height: '100%'}}>
 								{interpolatedStyles.map((style, i) => {
-									return <Choice key={choices[i].key} style={style} choiceCharacter={choices[i].key} text={choices[i].data} />
+									return (
+										<Choice
+											key={choices[i].key}
+											style={style}
+											choiceCharacter={choices[i].key}
+											text={choices[i].data}
+											isAnswer={answer === i}
+											showAnswer={showAnswer}
+										/>
+									);
 								})}
 							</div>
 						}

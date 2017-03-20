@@ -12,6 +12,7 @@ class App extends Component {
 				'Tel Aviv',
 				'Paris'
 			],
+			answer: 1,
 			questionId: 1234,
 		},
 		{
@@ -22,23 +23,21 @@ class App extends Component {
 				'Seattle',
 				'Naches'
 			],
+			answer: 3,
 			questionId: 12345,
 		}],
-		showQuestion: false,
-		showAnswer: false,
-		showLeaderboard: false,
-	}
-
-	componentDidMount() {
-		setTimeout(() => this.setState({ showQuestion: true }), 1000);
-	}
+		questionAndAnswerDuration: 10000,
+	};
 
   render() {
-		const { questions, showQuestion, showAnswer } = this.state;
+		const { questions, questionAndAnswerDuration } = this.state;
 
     return (
       <div className="App">
-        <BibleTrivia questions={questions} showQuestion={showQuestion} showAnswer={showAnswer} />
+        <BibleTrivia
+					questions={questions}
+					questionAndAnswerDuration={questionAndAnswerDuration}
+				/>
       </div>
     );
   }

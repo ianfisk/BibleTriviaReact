@@ -9,8 +9,9 @@ export default class BibleTrivia extends Component {
 			text: PropTypes.string.isRequired,
 			choices: PropTypes.arrayOf(PropTypes.string).isRequired,
 			questionId: PropTypes.number.isRequired,
+			answer: PropTypes.number.isRequired,
 		})),
-		showQuestion: PropTypes.bool.isRequired,
+		questionAndAnswerDuration: PropTypes.number.isRequired,
 	};
 
 	static defaultProps = {
@@ -19,15 +20,17 @@ export default class BibleTrivia extends Component {
 
 	state = {
 		currentQuestionIndex: 0,
+		showAnswer: false,
 	};
 
-	// componentDidMount() {
-	// 	setTimeout(() => this.setState({currentQuestionIndex: 1}), 10000);
-	// }
+	componentDidMount() {
+		const { questionAndAnswerDuration } = this.props;
+		setTimeout(() => this.setState({showAnswer: true}), questionAndAnswerDuration * (2 / 3));
+	}
 
   render() {
-		const { questions, showAnswer } = this.props;
-		const { currentQuestionIndex } = this.state;
+		const { questions } = this.props;
+		const { currentQuestionIndex, showAnswer } = this.state;
 		const currentQuestion = questions[currentQuestionIndex];
 
     return (
@@ -35,7 +38,7 @@ export default class BibleTrivia extends Component {
 				<div style={styles.leftMargin}></div>
 				<div style={styles.content}>
 					<Question text={currentQuestion.text} />
-					<Choices choices={currentQuestion.choices} showAnswer={showAnswer} />
+					<Choices choices={currentQuestion.choices} answer={currentQuestion.answer} showAnswer={showAnswer} />
 				</div>
       </div>
     );
