@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Motion, spring, presets } from 'react-motion';
 import BibleTrivia from './bible-trivia';
 import './App.css';
 
@@ -47,6 +48,41 @@ class App extends Component {
 			questionId: 12345,
 		}],
 		questionAndAnswerDuration: 8000,
+		isFirstRun: false,
+	};
+
+	getStyle = () => {
+		const { isFirstRun } = this.state;
+		let messageStyle = {};
+		if (isFirstRun) {
+			messageStyle = {
+				opacity: spring(1),
+				height: spring(60, presets.wobbly),
+			};
+		} else {
+			messageStyle = {
+				opacity: spring(0),
+				height: spring(0, presets.wobbly),
+			};
+		}
+
+		return messageStyle;
+	};
+
+	componentDidMount() {
+		if (!localStorage)
+			return;
+
+		const isFirstRun = localStorage.getItem('isFirstRun') == null;
+		if (isFirstRun) {
+			localStorage.setItem('isFirstRun', false);
+		}
+
+		setTimeout(() => this.setState({isFirstRun: isFirstRun}), 1000);
+	}
+
+	closeMessage = () => {
+		this.setState({isFirstRun: false});
 	};
 
 	render() {
@@ -58,6 +94,19 @@ class App extends Component {
 					questions={questions}
 					questionAndAnswerDuration={questionAndAnswerDuration}
 				/>
+				<Motion
+					defaultStyle={{height: 0, opacity: 0}}
+					style={this.getStyle()}>
+					{style => {
+						return (
+							<div id="explanation" style={style}>
+								<div className="x-button" onClick={this.closeMessage}>X</div>
+								This is a fun experiment to see how suitable React and React Motion are
+								for animations. Enjoy! 😀😎🙃
+							</div>
+						);
+					}}
+				</Motion>
 			</div>
 		);
 	}
