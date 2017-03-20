@@ -30,7 +30,7 @@ export default class Choices extends Component {
 	}
 
 	componentDidMount() {
-		setTimeout(() => this.setState({fadeChoicesIn: true}), 1000);
+		setTimeout(() => this.setState({fadeChoicesIn: true}), 1100);
 	}
 
 	getDefaultStyles = () => {
