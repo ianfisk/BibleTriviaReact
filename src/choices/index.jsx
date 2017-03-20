@@ -46,11 +46,11 @@ export default class Choices extends Component {
 		});
 	};
 
-  render() {
+	render() {
 		const { answer, showAnswer } = this.props;
 		const { fadeChoicesIn, choices } = this.state;
 
-    return (
+		return (
 			<div className="choice-container">
 				{fadeChoicesIn ?
 					<StaggeredMotion
@@ -76,6 +76,6 @@ export default class Choices extends Component {
 					null
 				}
 			</div>
-    );
-  }
+		);
+	}
 }

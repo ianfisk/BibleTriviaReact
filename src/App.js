@@ -29,18 +29,18 @@ class App extends Component {
 		questionAndAnswerDuration: 10000,
 	};
 
-  render() {
+	render() {
 		const { questions, questionAndAnswerDuration } = this.state;
 
-    return (
-      <div className="App">
-        <BibleTrivia
+		return (
+			<div className="App">
+				<BibleTrivia
 					questions={questions}
 					questionAndAnswerDuration={questionAndAnswerDuration}
 				/>
-      </div>
-    );
-  }
+			</div>
+		);
+	}
 }
 
 export default App;

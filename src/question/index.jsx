@@ -31,12 +31,12 @@ export default class Question extends Component {
 		};
 	};
 
-  render() {
+	render() {
 		const { fadeQuestionIn } = this.state;
 		const { text } = this.props;
 
-    return (
-      <div style={styles.container}>
+		return (
+			<div style={styles.container}>
 				{fadeQuestionIn ?
 					<Motion
 						defaultStyle={this.getDefaultStyle()}
@@ -45,7 +45,7 @@ export default class Question extends Component {
 					</Motion> :
 					null
 				}
-      </div>
-    );
-  }
+			</div>
+		);
+	}
 }

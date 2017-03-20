@@ -24,17 +24,17 @@ export default class Choice extends Component {
 		return answerStyle;
 	};
 
-  render() {
+	render() {
 		const { text, choiceCharacter, style } = this.props;
 
-    return (
-      <div style={{...style, ...styles.choice}}>
+		return (
+			<div style={{...style, ...styles.choice}}>
 				<Motion
 					defaultStyle={{left: 0, opacity: 1}}
 					style={this.getStyle()}>
 					{style => <span style={{...style, position: 'relative'}}>{`${choiceCharacter}. ${text}`}</span>}
 				</Motion>
-      </div>
-    );
-  }
+			</div>
+		);
+	}
 }

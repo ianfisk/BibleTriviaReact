@@ -28,19 +28,19 @@ export default class BibleTrivia extends Component {
 		setTimeout(() => this.setState({showAnswer: true}), questionAndAnswerDuration * (2 / 3));
 	}
 
-  render() {
+	render() {
 		const { questions } = this.props;
 		const { currentQuestionIndex, showAnswer } = this.state;
 		const currentQuestion = questions[currentQuestionIndex];
 
-    return (
-      <div style={styles.container}>
+		return (
+			<div style={styles.container}>
 				<div style={styles.leftMargin}></div>
 				<div style={styles.content}>
 					<Question text={currentQuestion.text} />
 					<Choices choices={currentQuestion.choices} answer={currentQuestion.answer} showAnswer={showAnswer} />
 				</div>
-      </div>
-    );
-  }
+			</div>
+		);
+	}
 }
