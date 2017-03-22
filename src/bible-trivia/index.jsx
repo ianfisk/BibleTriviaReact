@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Question from '../question';
 import Choices from '../choices';
+import CountdownTimer from '../countdown-timer';
 import { styles } from './styles';
 
 export default class BibleTrivia extends Component {
@@ -21,8 +22,12 @@ export default class BibleTrivia extends Component {
 	state = {
 		currentQuestionIndex: 0,
 		showAnswer: false,
+		hideTimer: true,
+		timerSeconds: 0,
 		hideQuestion: false,
 	};
+
+	countdownIntervalId = -1;
 
 	componentDidMount() {
 		this.startQuestionLoop();
@@ -30,14 +35,25 @@ export default class BibleTrivia extends Component {
 
 	startQuestionLoop = () => {
 		const { questionAndAnswerDuration } = this.props;
-		setTimeout(() => this.setState({showAnswer: true}), questionAndAnswerDuration * (2 / 3));
+		setTimeout(() => this.setState({showAnswer: true, hideTimer: true, timerSeconds: 0}), questionAndAnswerDuration * (2 / 3));
+		setTimeout(() => {
+			this.setState({hideTimer: false, timerSeconds: Math.floor((questionAndAnswerDuration * (2 / 3)) / 1000) - 2});
+			this.startTimerLoop();
+		}, 2000);
 		setTimeout(this.handleQuestionDone, questionAndAnswerDuration);
+	};
+
+	startTimerLoop = () => {
+		this.countdownIntervalId = setInterval(() => {
+			this.setState({timerSeconds: this.state.timerSeconds - 1});
+		}, 1000)
 	};
 
 	handleQuestionDone = () => {
 		console.log('Question is done!');
 
 		const nextQuestionIndex = (this.state.currentQuestionIndex + 1) % this.props.questions.length;
+		clearInterval(this.countdownIntervalId);
 		this.setState(
 			{currentQuestionIndex: nextQuestionIndex, showAnswer: false, hideQuestion: true},
 			() => {
@@ -49,7 +65,7 @@ export default class BibleTrivia extends Component {
 
 	render() {
 		const { questions } = this.props;
-		const { currentQuestionIndex, showAnswer, hideQuestion } = this.state;
+		const { currentQuestionIndex, showAnswer, hideQuestion, hideTimer, timerSeconds } = this.state;
 		const currentQuestion = questions[currentQuestionIndex];
 
 		return (
@@ -62,6 +78,7 @@ export default class BibleTrivia extends Component {
 					</div> :
 					null
 				}
+				<CountdownTimer hide={hideTimer} seconds={timerSeconds} />
 			</div>
 		);
 	}
