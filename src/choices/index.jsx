@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { StaggeredMotion, spring, presets } from 'react-motion';
+import { StaggeredMotion, spring } from 'react-motion';
 import Choice from '../choice';
 import './styles.css';
 
@@ -46,11 +46,11 @@ export default class Choices extends Component {
 		return prevInterpolatedStyles.map((_, i) => {
 			return i === 0
 				? {
-					left: spring(0, presets.stiff),
-					opacity: spring(1, presets.stiff),
+					left: spring(0, {stiffness: 140, damping: 15}),
+					opacity: spring(1, {stiffness: 140, damping: 15}),
 				} : {
-					left: spring(prevInterpolatedStyles[i - 1].left, presets.stiff),
-					opacity: spring(prevInterpolatedStyles[i - 1].opacity, presets.stiff),
+					left: spring(prevInterpolatedStyles[i - 1].left, {stiffness: 140, damping: 15}),
+					opacity: spring(prevInterpolatedStyles[i - 1].opacity, {stiffness: 140, damping: 15}),
 				};
 		});
 	};
