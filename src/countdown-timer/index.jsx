@@ -15,14 +15,12 @@ export default class CountdownTimer extends Component {
 		const { hide } = this.props;
 		if (hide) {
 			return {
-				opacity: spring(0),
-				height: spring(30, presets.gentle),
+				bottom: spring(-80, presets.gentle),
 			};
 		}
 
 		return {
-			opacity: spring(1),
-			height: spring(70, presets.gentle),
+			bottom: spring(-30, presets.gentle),
 		};
 	};
 
@@ -32,11 +30,11 @@ export default class CountdownTimer extends Component {
 		return (
 			<div style={styles.container}>
 				<Motion
-					defaultStyle={{height: 30, opacity: 0}}
+					defaultStyle={{bottom: -80}}
 					style={this.getStyle()}>
-					{({height, opacity}) => (
-						<div style={{height: height, ...styles.timer}}>
-							<span style={{opacity: opacity, ...styles.number}}>{seconds}</span>
+					{({bottom}) => (
+						<div style={{bottom, ...styles.timer}}>
+							<span style={styles.number}>{seconds}</span>
 						</div>
 					)}
 				</Motion>
